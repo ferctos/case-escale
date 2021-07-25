@@ -91,7 +91,7 @@ A arquitetura escolhida para a modelagem das tabelas baseia-se em ferramentas op
 
 Para gerarmos o cenário, utilizamo-nos também do **Terraform** para a criação dos recursos citados no Google Cloud Platform, que por sua vez foi a plataforma de nuvem escolhida para a apresentação. Por questões de adoção em nuvem, utilizaremos o **BigQuery** como nossa solução de Data Warehousing. 
 
-## Configuração do Ambiente
+## Parte 3 - Configuração do Ambiente
 
 Para provisionarmos o ambiente utilizado na apresentação, é necessária a instalação dos utilitários citados abaixo:
 
@@ -113,15 +113,19 @@ billing_id = "######-######-######"
 
 # The GCP folder ID of where you want your project to be under
 # Leave this blank if you use a personal account
-folder_id  = ""
+folder_id = ""
 
 # The GCP organization ID of where you want your project to be under
 # Leave this blank if you use a personal account
-org_id     = ""
+org_id = ""
 
 # The GCP project to create
 project_id = ""
 ```
+
+Por fim, podemos subir o ambiente por meio do caminho `make up`. Outros comandos relacionados ao gerenciamento do ambiente criado podem ser consultados diretamente através do `Makefile`. 
+
+
 
 
 
