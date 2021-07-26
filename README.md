@@ -91,6 +91,10 @@ A arquitetura escolhida para a modelagem das tabelas baseia-se em ferramentas op
 
 Para gerarmos o cenário, utilizamo-nos também do **Terraform** para a criação dos recursos citados no Google Cloud Platform, que por sua vez foi a plataforma de nuvem escolhida para a apresentação. Por questões de adoção em nuvem, utilizaremos o **BigQuery** como nossa solução de Data Warehousing. 
 
+Podemos ver na figura abaixo o exemplo da configuração realizada no Airbyte para a extração de dados a partir do Postgres e sua consequente ingestão programada no BigQuery:
+
+![airbyte-connection](img/airbyte_conn.png "Airbyte Connection")
+
 ## Parte 3 - Configuração do Ambiente
 
 Para provisionarmos o ambiente utilizado na apresentação, é necessária a instalação dos utilitários citados abaixo:
