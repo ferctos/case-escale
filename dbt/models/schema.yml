@@ -1,0 +1,93 @@
+version: 2
+
+models:
+  - name: call_history
+    description: Apresenta os principais detalhes das ligações, bem como as principais métricas associadas a elas
+    columns:
+      - name: call_id
+        description: Id da ligação 
+        tests:
+          - unique
+          - not_null
+      - name: mkt_id
+        description: Id da campanha de marketing associada com a ligação
+      - name: attendance_token
+        description: Id do token de atendimento associado com a ligação
+      - name: call_status
+        description: Descrição do status atrelado à ligação
+      - name: call_final_status
+        description: Descrição do status final atrelado à ligação
+      - name: wait_time
+        description: Tempo de espera da ligação em minutos
+      - name: duration_time
+        description: Tempo de duração da ligação em minutos
+      - name: duration_pos_attendance_time
+        description: Tempo de duração da ligação após o atendimento em minutos
+      - name: call_created_at
+        description: Data/hora de criação da transação 
+
+  - name: marketing_details
+    description: Apresenta os detalhes das campanhas associadas com as ligações, servindo como ponto de ligação para casos em que necessitamos ter um maior entendimento de performance por canais e/ou campanhas individualmente
+    columns:
+      - name: mkt_id
+        description: Id da campanha de marketing associada com a ligação
+        tests:
+          - unique
+          - not_null
+      - name: media_type
+        description: Tipo de mídia associado
+      - name: campaign_name
+        description: Nome da campanha 
+      - name: origin_type
+        description: Tipo de fonte da campanha 
+      - name: campaign_page
+        description: Página da campanha 
+      - name: campaign_origin_domain
+        description: Domínio de origem da campanha
+      - name: campaign_destiny
+        description: Destino da campanha
+      - name: campaign_operation
+        description: Operação da campanha 
+      - name: activation_type
+        description: Tipo de ativação da campanha 
+      - name: mkt_details_created_at
+        description: Data/hora de criação da linha de campanha
+
+  - name: attendance_details
+    description: Apresenta os detalhes dos atendimentos atrelado às ligações, sendo útil para casos em que necessitamos ter um entendimento mais amplo da performance de times e/ou atendentes, ou quando desejamos realizar estudos sobre os consumidores, por exemplo
+    columns:
+      - name: attendance_detail_id
+        description: Id da tabela de relacionamento entre atendimentos e ligações
+        tests:
+          - not_null
+      - name: attendance_id
+        description: Id do atendimento
+      - name: attendance_token
+        description: Id do token de relacionamento entre atendimento e ligação
+      - name: team_id
+        description: Id do time de atendimento
+      - name: attendant_id
+        description: Id do atendente 
+      - name: queue_number
+        description: Código da fila associada ao atendimento 
+      - name: main_connection
+        description: Indicador da conexão principal (= 1 para atendimentos únicos)
+      - name: attendance_protocol
+        description: Protocolo de atendimento 
+      - name: attendance_status_id
+        description: Id de status do atendimento
+      - name: attendance_type_id
+        description: Id do tipo de atendimento 
+      - name: customer_id
+        description: Id do consumidor
+      - name: customer_ddd
+        description: DDD do telefone do consumidor
+      - name: customer_phone
+        description: Telefone hasheado do consumidor
+      - name: customer_uf
+        description: Unidade federativa atrelada ao consumidor
+      - name: customer_locality
+        description: Localidade atrelada ao consumidor 
+      - name: attendance_created_at
+        description: Data/hora do atendimento 
+      

@@ -125,6 +125,56 @@ project_id = ""
 
 Por fim, podemos subir o ambiente por meio do caminho `make up`. Outros comandos relacionados ao gerenciamento do ambiente criado podem ser consultados diretamente através do `Makefile`. 
 
+## Parte 4: Remodelagem dos Dados 
+
+O modelo de vigente possui algumas características que o tornam inadequado para utilização contínua por parte dos times de Analytics e/ou Business, o que nos leva à necessidade de propor um novo modelo que atenda a estas necessidades:
+
+* Alta quantidade de JOINs a ser executados entre as tabelas para obter as métricas mais relevantes
+* Duplicidade de informações entre diferentes tabelas, o que pode levar a conclusões confusas e/ou errôneas por parte dos(as) analistas
+
+O novo modelo de dados surge com a proposta de atacar estes problemas diretamente, trazendo portanto uma estrutura composta por três tabelas de fácil aderência e interpretabilidade no seu uso do dia-a-dia por parte dos(as) analistas:
+
+* **attendance.call_history**: Apresenta os principais detalhes das ligações, bem como as principais métricas associadas a elas.
+* **attendance.marketing_details**: Apresenta os detalhes das campanhas associadas com as ligações, servindo como ponto de ligação para casos em que necessitamos ter um maior entendimento de performance por canais e/ou campanhas individualmente. 
+* **attendance.attendance_details**: Apresenta os detalhes dos atendimentos atrelado às ligações, sendo útil para casos em que necessitamos ter um entendimento mais amplo da performance de times e/ou atendentes, ou quando desejamos realizar estudos sobre os consumidores, por exemplo.
+
+O pipeline de construção do novo modelo é realizado sob o paradigma **ELT** utilizado em plataformas de dados modernas no qual os processos de extração e ingestão ocorrem anteriormente, deixando a transformação dos dados para a parte final que ocorrerá diretamente no Data Warehouse. Em nosso cenário, o **DBT** é a ferramenta responsável por descrever e realizar as transformações requeridas para a geração do novo modelo. 
+
+Maiores detalhes a respeito dos schemas e/ou descrições das novas colunas podem ser encontrados diretamente no arquivo `dbt/models/schema.yml`. 
+
+## Parte 5: Respondendo a perguntas através do novo Modelo
+
+Conseguimos demonstrar o uso do novo modelo através de algumas queries de exemplo utilizadas para responder a duas perguntas realizadas:
+
+### Pergunta 1: Número de ligações receptivas diárias por status final da ligação e tipo de mídia
+
+```sql
+select
+    extract(date from a.call_created_at) as day,
+    a.call_final_status,
+    b.media_type,
+    count(distinct a.call_id) as num_calls
+from attendance.call_history a
+left join attendance.marketing_details b on a.mkt_id = b.mkt_id
+where a.call_status = 'Entrada'
+group by 1, 2, 3
+order by 1 asc, 2 asc, 3 asc, 4 desc
+```
+
+### Pergunta 2: Número de ligações não receptivas mensais por tipo de mídia
+
+```sql
+select
+    format_datetime("%B, %Y", a.call_created_at) as month,
+    b.media_type,
+    count(distinct a.call_id) as num_calls
+from attendance.call_history a
+left join attendance.marketing_details b on a.mkt_id = b.mkt_id
+where a.call_status <> 'Entrada'
+group by 1, 2
+order by 1 asc, 2 asc, 3 desc
+```
+
 
 
 
