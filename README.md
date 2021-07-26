@@ -1,6 +1,6 @@
-# Case Técnico Escale - Senior Analytics Engineer
+# Case Técnico Escale - Analytics Engineer
 
-A página em questão busca apresentar respostas e abordagens de solução relacionadas ao case técnico proposto para a vaga de **Senior Analytics Engineer** da Escale. 
+A página em questão busca apresentar respostas e abordagens de solução relacionadas ao case técnico proposto para a vaga de **Analytics Engineer** da Escale. 
 
 ## Parte 1 - Respostas usando SQL 
 
@@ -178,6 +178,40 @@ where a.call_status <> 'Entrada'
 group by 1, 2
 order by 1 asc, 2 asc, 3 desc
 ```
+
+## Parte 6: Métricas e Visualizações
+
+Nesta seção apresentamos algumas visualizações de métricas de exemplo interessantes que podemos extrair a partir do novo modelo de dados que foi concebido. Para estas visualizações utilizamos o Metabase como principal ferramenta.
+
+### Sales Rate per Day
+
+Métrica de apresentação do número de ligações de Vendas em relação ao total de ligações por dia registradas dentro de um range de datas.
+
+![sales-rate](img/sales_rate.png "Sales Rate per Day")
+
+
+### Calls per Day by Reception Type
+
+Apresentação diária do número de ligações com quebra por tipo de recepção (Receptiva ou Não Receptiva) dentro de um range de datas.
+
+![calls-reception-type](img/calls_reception_type.png "Calls per Day by Reception Type")
+
+## Parte 7: Pontos Adicionais e Conclusão
+
+O cenário apresentado neste projeto possui como principal objetivo a exploração de novas possibilidades no que tange aos processos de ingestão e transformação dos dados de ligações e atendimento, além de também servir como ponto de partida para a futura concepção de produtos e/ou esteiras de Dados com alto nível de padronização e aderência a boas práticas de desenvolvimento de software. Outro ponto positivo que exploramos neste exercício está no fato de utilizarmos ferramentas de manipulação de baixa curva de aprendizado e com boas capacidades de Governança, o que por sua vez facilita sua implementação e reduz o tempo de onboarding de novos(as) membros(as) ao time.
+
+Como pontos de evolução e melhorias relacionados ao tema, elencamos como principais:
+
+* Entedimento mais profundo com as áreas de Negócio e/ou Produto relacionadas ao tema a fim de explorarmos novos processos e/ou origens de informações, uma vez que as bases de origem atuais carecem de uma quantidade relevante de informações e possuem muitos valores nulos.
+
+* Apresentação dos novos modelos gerados ao Negócio e formulação de um plano de adoção, de forma que consigamos avaliar a efetividade dos esforços realizados:
+    * Implantação de sessões tira-dúvidas a fim de sanar as principais dificuldades tidas pelo Negócio durante a sua manipulação dos dados no dia-a-dia
+    * Implantação de pesquisas periódicas com os times de Analytics e Negócios a fim de extrair métricas relevantes de percepção da companhia a respeito dos modelos e produtos de dados que foram concebidos (NPS, por exemplo)
+
+* Revisão da arquitetura visando um cenário de maior escalabilidade e alto volume diário de processamento de dados:
+    * Deploy dos componentes visando maior isolamento de dependências e facilidade de redimensionamento (Kubernetes, por exemplo)
+    * Avaliação de processos de CI/CD e processos de Code Review que possam garantir a qualidade das subidas de novos pipelines e modelos no dia-a-dia
+
 
 
 

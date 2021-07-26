@@ -14,6 +14,10 @@ get_dbt_creds:
 	# Get Service Account credentials for BigQuery to use on DBT 
 	terraform output dbt_sa_key | xargs echo {} | python -m base64 -d
 
+get_metabase_creds:
+	# Get Service Account credentials for BigQuery to use on DBT 
+	terraform output metabase_sa_key | xargs echo {} | python -m base64 -d
+
 access_airbyte:
 	gcloud beta compute ssh --zone "southamerica-east1-a" "ferctos-escale-data-airbyte"  --project "ferctos-escale-data" -- -L 8000:localhost:8000 -L 8001:localhost:8001 -N -f
 
